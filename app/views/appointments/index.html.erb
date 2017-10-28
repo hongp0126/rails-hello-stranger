@@ -1,2 +1,15 @@
-<h1>Appointments#index</h1>
-<p>Find me in app/views/appointments/index.html.erb</p>
+<div class="white-background", style="background-image: url('<%= asset_path "white-background.jpg" %>');">
+<div class="container">
+  <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+    <h2>HELLO STRANGERS</h2>
+    <h3>Let's Dine Together</h3>
+
+    <div class="card-strangers">
+      <%= form_tag appointments_path(), method: :get do %>
+        <%= select_tag :food_culture_id, options_from_collection_for_select(@food_cultures,"id", "nationality", :selected => params[:food_culture_id]) %>
+      <% end %>
+
+    </div>
+    </div>
+  </div>
+</div>

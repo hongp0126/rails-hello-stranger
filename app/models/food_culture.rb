@@ -1,7 +1,5 @@
 class FoodCulture < ApplicationRecord
-  belongs_to :user
-  belongs_to :appointment
-
-  validates_uniqueness_of :user_id, scope: :appointment_id
+  has_many :users, through: :appointments
+  has_many :appointments
   validates :nationality, presence: true, uniqueness: true
 end
