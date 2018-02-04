@@ -10,31 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171026044925) do
+ActiveRecord::Schema.define(version: 20180204051210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.string   "random_name"
+    t.string   "restaurant_name"
     t.datetime "date"
     t.string   "address"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "price"
     t.integer  "participant"
+    t.integer  "food_culture_id"
+    t.string   "title"
+    t.string   "description"
+    t.index ["food_culture_id"], name: "index_appointments_on_food_culture_id", using: :btree
     t.index ["user_id"], name: "index_appointments_on_user_id", using: :btree
   end
 
   create_table "food_cultures", force: :cascade do |t|
     t.string   "nationality"
-    t.integer  "user_id"
-    t.integer  "appointment_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["appointment_id"], name: "index_food_cultures_on_appointment_id", using: :btree
-    t.index ["user_id"], name: "index_food_cultures_on_user_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,11 +50,14 @@ ActiveRecord::Schema.define(version: 20171026044925) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "phone_number"
+    t.string   "gender"
+    t.date     "Birthday"
+    t.string   "Interest"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "appointments", "food_cultures"
   add_foreign_key "appointments", "users"
-  add_foreign_key "food_cultures", "appointments"
-  add_foreign_key "food_cultures", "users"
 end
